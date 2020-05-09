@@ -1,9 +1,9 @@
-package asylumdev.adglib;
+package com.asylumdev.adglib;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import asylumdev.adglib.base.ADGMod;
+import com.asylumdev.adglib.base.ADGMod;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraftforge.common.MinecraftForge;
@@ -17,9 +17,13 @@ import net.minecraftforge.fml.event.lifecycle.InterModProcessEvent;
 import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @Mod(ADGLibConstants.MODID)
 public class ADGLib implements ADGMod {
 	public static final Logger LOGGER = LogManager.getLogger();
+	private static final Map<String, ADGMod> mods = new HashMap<>();
 	
 	public ADGLib() {
         // Register the setup method for modloading
@@ -35,10 +39,21 @@ public class ADGLib implements ADGMod {
         MinecraftForge.EVENT_BUS.register(this);
     }
 
+    public static void registerMod(ADGMod mod) {
+	    mods.put(mod.getModid(), mod);
+    }
+
+    public static void logAllMods() {
+
+    }
+
     private void setup(final FMLCommonSetupEvent event)
     {
-        // some preinit code
+        registerMod(this);
         LOGGER.info("HELLO FROM PREINIT");
+        for (String modid : mods.keySet()) {
+            LOGGER.info("ADG Mod Registered: " + modid);
+        }
         LOGGER.info("DIRT BLOCK >> {}", Blocks.DIRT.getRegistryName());
     }
 
@@ -76,7 +91,7 @@ public class ADGLib implements ADGMod {
 
 	@Override
 	public String getModid() {
-		return ADGLibConstants.MODID;
+	    return ADGLibConstants.MODID;
 	}
 
 }

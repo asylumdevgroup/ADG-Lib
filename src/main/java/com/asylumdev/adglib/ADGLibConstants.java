@@ -1,4 +1,4 @@
-package asylumdev.adglib;
+package com.asylumdev.adglib;
 
 public class ADGLibConstants {
 	public static final String MODID = "adglib";
