@@ -50,11 +50,10 @@ public class ADGLib implements ADGMod {
     private void setup(final FMLCommonSetupEvent event)
     {
         registerMod(this);
-        LOGGER.info("HELLO FROM PREINIT");
+        LOGGER.info("ADGLib PreInit");
         for (String modid : mods.keySet()) {
             LOGGER.info("ADG Mod Registered: " + modid);
         }
-        LOGGER.info("DIRT BLOCK >> {}", Blocks.DIRT.getRegistryName());
     }
 
     private void doClientStuff(final FMLClientSetupEvent event) {
@@ -75,7 +74,6 @@ public class ADGLib implements ADGMod {
     @SubscribeEvent
     public void onServerStarting(FMLServerStartingEvent event) {
         // do something when the server starts
-        LOGGER.info("HELLO from server starting");
     }
 
     // You can use EventBusSubscriber to automatically subscribe events on the contained class (this is subscribing to the MOD
@@ -85,7 +83,6 @@ public class ADGLib implements ADGMod {
         @SubscribeEvent
         public static void onBlocksRegistry(final RegistryEvent.Register<Block> blockRegistryEvent) {
             // register a new block here
-            LOGGER.info("HELLO from Register Block");
         }
     }
 
